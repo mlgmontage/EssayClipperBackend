@@ -19,4 +19,18 @@ router.get("/", async (req, res) => {
   res.json(snipetsList);
 });
 
+router.post("/create", async (req, res) => {
+  const body = req.body;
+  if (
+    body.title != undefined &&
+    body.markdown != undefined &&
+    body.isArchived != undefined
+  ) {
+    const created = await snipets.insert(body);
+    res.json(created);
+  } else {
+    res.status(502).json({ message: "Bad request" });
+  }
+});
+
 module.exports = router;
