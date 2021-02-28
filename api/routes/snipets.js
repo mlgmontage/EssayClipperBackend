@@ -12,6 +12,8 @@ snipets.createIndex("title");
  *    markdown,
  *    isArchived
  * }
+ *
+ * TODO: Archive, archive list, delete, update, individual route
  */
 
 router.get("/", async (req, res) => {
@@ -31,6 +33,12 @@ router.post("/create", async (req, res) => {
   } else {
     res.status(502).json({ message: "Bad request" });
   }
+});
+
+router.delete("/:id", async (req, res) => {
+  const _id = req.params.id;
+  const deleted = await snipets.remove({ _id });
+  res.json(deleted.deleletedCount);
 });
 
 module.exports = router;
